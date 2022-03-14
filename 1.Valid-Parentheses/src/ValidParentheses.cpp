@@ -13,37 +13,32 @@ bool Solution::isValid(std::string s) {
 
   // For every character in the string, s.
   for (int i = 0; i < s.length(); i++) {
-    switch (s[i]) {
-      // If character[i] is a closing parentheses.
-      case ')':
-      case '}':
-      case ']':
-        // Nothing to close!!
-        if (parentheses.empty()) {
+    // If character[i] is an opening parentheses.
+    if (s[i] == '(' || s[i] == '{' || s[i] == '[') {
+      // Add to vector and continue.
+      parentheses.push_back(s[i]);
+      continue;
+    }
+
+    // If character[i] is a closing parentheses.
+    if (s[i] == ')' || s[i] == '}' || s[i] == ']') {
+      // Nothing to close!!
+      if (parentheses.empty()) {
         return false;
-        }
+      }
 
-        // Checks if closing parentheses does not match the current parentheses.
-        if (s[i] == ')' && parentheses.back() != '(') {
-          return false;
-        } else if (s[i] == '}' && parentheses.back() != '{') {
-          return false;
-        } else if (s[i] == ']' && parentheses.back() != '[') {
-          return false;
-        } else {
-          // Closing parentheses matches; remove the current parentheses from vector.
-          parentheses.pop_back();
-        }
-      break;
-
-      // If character[i] is an opening parentheses.
-      case '(':
-      case '{':
-      case '[':
-        // Add to vector.
-        parentheses.push_back(s[i]);
-      break;
+      // Checks if closing parentheses does not match the current parentheses.
+      if (s[i] == ')' && parentheses.back() != '(') {
+        return false;
+      } else if (s[i] == '}' && parentheses.back() != '{') {
+        return false;
+      } else if (s[i] == ']' && parentheses.back() != '[') {
+        return false;
+      } else {
+        // Closing parentheses matches; remove the current parentheses from vector.
+        parentheses.pop_back();
       }
     }
+  }
   return true;
 }
