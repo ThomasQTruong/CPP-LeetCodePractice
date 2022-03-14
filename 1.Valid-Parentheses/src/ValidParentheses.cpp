@@ -40,5 +40,11 @@ bool Solution::isValid(std::string s) {
       }
     }
   }
+
+  // Still have parentheses to close.
+  if (parentheses.size() > 0) {
+    return false;
+  }
+  // Successfully closed every parentheses.
   return true;
 }
