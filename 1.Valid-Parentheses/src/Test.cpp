@@ -14,10 +14,12 @@ int main(void) {
 
   // Values used for testing.
   std::string testCases[] = {"[(){([])}]", "[(){([)}]", "[]", "()", "{}", "(]", "[}", "}{", ")(",
-                           "(((){{{}[[]]}}))", "[[()]]", "(((){{{}[[])}})}", "(", ")"};
+                           "(((){{{}[[]]}}))", "[[()]]", "(((){{{}[[])}})}", "(", ")",
+                           "[(1 + 1) * (2 - 21)] / 3", "[(1 + 1) * (2 - 21)} / 3"};
   // Expected return for the values above.
   bool expected[] = {true, false, true, true, true, false, false, false, false,
-                     true, true, false, false, false};
+                     true, true, false, false, false,
+                     true, false};
 
   // Test cases.
   for (int i = 0; i < sizeof(expected) / sizeof(expected[0]); i++) {
