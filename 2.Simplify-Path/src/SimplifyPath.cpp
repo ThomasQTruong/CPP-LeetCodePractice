@@ -16,22 +16,40 @@ std::string Solution::simplifyPath(std::string path) {
 
   // Splits the string whenever there is the '/' character.
   std::queue<std::string> splitted = split(path, '/');
+  std::deque<std::string> regularPath;
 
   std::string newPath = "";  // Contains the new path.
   while (splitted.size() > 0) {
-    int i = 0;
-    // If splitted[i] contains nothing or "." then remove from queue.
+    // If splitted.front() contains nothing or "." then remove from queue.
     if (splitted.front() == "" || splitted.front() == ".") {
       splitted.pop();
+      continue;
     }
 
-    // /hello/world/../..
-    // /hello/world
+    // If splitted.front() contains the back function ("..").
+    if (splitted.front() == "..") {
+      // Remove item at back if there is something to remove.
+      if (regularPath.size() > 0) {
+        regularPath.pop_back();
+      }
+      splitted.pop();
+      continue;
+    }
+
+    // Nothing wrong with the path, add to back to regularPath.
+    regularPath.push_back(splitted.front());
+    splitted.pop();
   }
 
-  // Everything was "" or "." in the queue.
-  if (newPath == "") {
+  // Nothing to add to the path.
+  if (regularPath.size() == 0) {
     return "/";
+  }
+
+  // Add everything from regularPath to newPath.
+  while (regularPath.size() > 0) {
+    newPath += "/" + regularPath.front();
+    regularPath.pop_front();
   }
 
   return newPath;
@@ -56,8 +74,11 @@ std::queue<std::string> Solution::split(std::string toSplit, char splitBy) {
       // Add substring to queue and change start_index.
       splitted.push(substring(toSplit, start_index, i));
       start_index = i + 1;
-    } else if (i == toSplit.length() - 1) {
-      // Is last index, add remaining substring.
+    }
+
+    // Is last index.
+    if (i == toSplit.length() - 1) {
+      // Add remaining substring.
       splitted.push(substring(toSplit, start_index, i + 1));
     }
   }
@@ -78,13 +99,13 @@ std::string Solution::substring(std::string str, int start, int end) {
   if (start < 0) {
     start = 0;
   }
+  // End is going to be out of range, set it to length.
+  if (end > str.length()) {
+    end = str.length();
+  }
 
   std::string sub = "";
   for (int i = start; i < end; ++i) {
-    // i is out of range, stop process.
-    if (i >= str.length()) {
-      break;
-    }
     sub += str[i];
   }
 

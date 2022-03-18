@@ -10,6 +10,7 @@
 
 #include <string>
 #include <queue>
+#include <deque>
 #include <iostream>
 
 class Solution {
