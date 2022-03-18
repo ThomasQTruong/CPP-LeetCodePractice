@@ -32,11 +32,11 @@ int main(void) {
 
   // Test params.
   for (int i = 0; i < sizeOfParams; ++i) {
-    if (EQ(s.simplifyPath(params[i]), expect[i])) {
+    if (EQ(s.simplifyPathEfficient(params[i]), expect[i])) {
       success++;
-    } else {
+    } else if (false) {  // debug
       // Unexpected param.
-      std::cout << "Got: " << s.simplifyPath(params[i])
+      std::cout << "Testing: " << params[i] << " | Got: " << s.simplifyPathEfficient(params[i])
                 << " | Expected: " << expect[i] << " | i = " << i << std::endl;
     }
   }

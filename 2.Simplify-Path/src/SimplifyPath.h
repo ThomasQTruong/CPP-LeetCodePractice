@@ -16,6 +16,7 @@
 class Solution {
  public:
   std::string simplifyPath(std::string path);
+  std::string simplifyPathEfficient(std::string path);
   std::queue<std::string> split(std::string toSplit, char splitBy);
   std::string substring(std::string str, int start, int end);
 };

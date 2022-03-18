@@ -56,6 +56,52 @@ std::string Solution::simplifyPath(std::string path) {
 }
 
 
+// Faster version of the previous solution.
+std::string Solution::simplifyPathEfficient(std::string path) {
+  std::deque<std::string> regularPath;
+  std::string newPath = "";
+
+  for (int start = 0, i = 0, len = 0; i < path.length(); ++i, ++len) {
+    std::string sub;
+
+    // If path[i] is '/' then we found the end of the current substr.
+    if (path[i] == '/') {
+      // Get substring and readjust start and len.
+      sub = path.substr(start, len);
+      start = i + 1;
+      len = -1;
+    } else if (i == path.length() - 1) {
+      // path[i] is NOT '/' but at the end so grab the rest of the string.
+      sub = path.substr(start);
+    }
+
+    // sub is back function ("..").
+    if (sub == "..") {
+      // Remove the last item of regularPath if any item exists.
+      if (regularPath.size() > 0) {
+        regularPath.pop_back();
+      }
+    } else if (sub != "." && sub != "" && sub != "/") {
+      // Is regular substr, add to regularPath.
+      regularPath.push_back(sub);
+    }
+  }
+
+  // Return "/" since nothing was added to regularPath.
+  if (regularPath.size() == 0) {
+    return "/";
+  }
+
+  // Create the new path using every item in regularPath.
+  while (regularPath.size() > 0) {
+    newPath += "/" + regularPath.front();
+    regularPath.pop_front();
+  }
+
+  return newPath;
+}
+
+
 /**
  * Splits a given string by a character.
  *
