@@ -10,11 +10,13 @@
 
 #include <string>
 #include <vector>
+#include <iostream>
 
 class Solution {
  public:
   std::string simplifyPath(std::string path);
-  std::vector<std::string> split(std::string original, char splitBy);
+  std::vector<std::string> split(std::string toSplit, char splitBy);
+  std::string substring(std::string str, int start, int end);
 };
 
 #endif  // _TT_SimplifyPath_H_
