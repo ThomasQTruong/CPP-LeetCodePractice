@@ -13,6 +13,28 @@ std::string Solution::simplifyPath(std::string path) {
   if (path == "" || path == "/") {
     return "/";
   }
+
+  // Splits the string whenever there is the '/' character.
+  std::queue<std::string> splitted = split(path, '/');
+
+  std::string newPath = "";  // Contains the new path.
+  while (splitted.size() > 0) {
+    int i = 0;
+    // If splitted[i] contains nothing or "." then remove from queue.
+    if (splitted.front() == "" || splitted.front() == ".") {
+      splitted.pop();
+    }
+
+    // /hello/world/../..
+    // /hello/world
+  }
+
+  // Everything was "" or "." in the queue.
+  if (newPath == "") {
+    return "/";
+  }
+
+  return newPath;
 }
 
 
@@ -21,22 +43,22 @@ std::string Solution::simplifyPath(std::string path) {
  *
  * @param toSplit - The string to split.
  * @param splitBy - The character to split the string with.
- * @return std::vector<std::string> - a vector that contains
+ * @return std::queue<std::string> - a queue that contains
  *  every value next to given character.
  */
-std::vector<std::string> Solution::split(std::string toSplit, char splitBy) {
-  std::vector<std::string> splitted;
+std::queue<std::string> Solution::split(std::string toSplit, char splitBy) {
+  std::queue<std::string> splitted;
   int start_index = 0;
 
-  for (int i = 0; i < toSplit.length(); i++) {
+  for (int i = 0; i < toSplit.length(); ++i) {
     // character[i] is the same character as splitBy.
     if (toSplit[i] == splitBy) {
-      // Add substring to vector and change start_index.
-      splitted.push_back(substring(toSplit, start_index, i));
+      // Add substring to queue and change start_index.
+      splitted.push(substring(toSplit, start_index, i));
       start_index = i + 1;
     } else if (i == toSplit.length() - 1) {
       // Is last index, add remaining substring.
-      splitted.push_back(substring(toSplit, start_index, i + 1));
+      splitted.push(substring(toSplit, start_index, i + 1));
     }
   }
   return splitted;
@@ -58,7 +80,7 @@ std::string Solution::substring(std::string str, int start, int end) {
   }
 
   std::string sub = "";
-  for (int i = start; i < end; i++) {
+  for (int i = start; i < end; ++i) {
     // i is out of range, stop process.
     if (i >= str.length()) {
       break;
