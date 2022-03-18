@@ -5,6 +5,10 @@
  * Copyright (c) 2022, Thomas Truong.
  */
 
+#include "SimplifyPath.h"
+
 int main(void) {
+
+
   return 0;
 }

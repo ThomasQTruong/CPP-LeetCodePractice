@@ -8,14 +8,21 @@
 
 #include "SimplifyPath.h"
 
+// 2 ideas:
+  // 1. scan for '/' and read for ".." or '.' and determine step.
+  // 2. split by '/' and do stuff...
+
 std::string Solution::simplifyPath(std::string path) {
   // Path is empty, just in the home directory.
   if (path == "" || path == "/") {
     return "/";
   }
+}
 
-  // Path did not start with a '/' so add it.
-  if (path[0] != '/') {
-    path = '/' + path;
-  }
+std::vector<std::string> Solution::stringSplit(std::string original, char splitBy) {
+  std::vector<std::string> test;
+  test.push_back("hello");
+  test.push_back("hi");
+
+  return test;
 }
