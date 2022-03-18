@@ -14,7 +14,7 @@
 class Solution {
  public:
   std::string simplifyPath(std::string path);
-  std::vector<std::string> stringSplit(std::string original, char splitBy);
+  std::vector<std::string> split(std::string original, char splitBy);
 };
 
 #endif  // _TT_SimplifyPath_H_

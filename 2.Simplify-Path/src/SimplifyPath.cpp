@@ -19,7 +19,7 @@ std::string Solution::simplifyPath(std::string path) {
   }
 }
 
-std::vector<std::string> Solution::stringSplit(std::string original, char splitBy) {
+std::vector<std::string> Solution::split(std::string original, char splitBy) {
   std::vector<std::string> test;
   test.push_back("hello");
   test.push_back("hi");
